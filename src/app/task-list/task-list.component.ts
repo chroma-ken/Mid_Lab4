@@ -1,21 +1,26 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskServiceService } from '../task-service/task-service.service';
+import { TaskServiceService} from '../task-service/task-service.service';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })
 export class TaskListComponent {
-   tasks: any[] = [];
 
-  constructor(private taskService: TaskServiceService) {}
+  editingTaskId: number | null = null; 
+  editedTitle: string = '';
+  editedDescription: string = '';
 
-  ngDoCheck() {
-    this.tasks = this.taskService.getTasks();
+   get tasks() {
+    return this.taskService.getFilteredTasks();
   }
+
+  constructor(public taskService: TaskServiceService) {}
 
   toggleTask(id: number) {
     this.taskService.toggleTasks(id);
@@ -25,5 +30,24 @@ export class TaskListComponent {
   deleteTask(id: number){
     this.taskService.deleteTask(id);
   }
+
+  startEditing(task: any) {
+    this.editingTaskId = task.id;
+    this.editedTitle = task.title;
+    this.editedDescription = task.description;
+  }
+
+  saveEdit(task: any) {
+    if (this.editedTitle.trim()) {
+      this.taskService.editTask(task.id, this.editedTitle);
+      task.description = this.editedDescription;
+      this.editingTaskId = null;
+    }
+  }
+
+  cancelEdit() {
+    this.editingTaskId = null;
+  }
+  
 
 }
