@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskServiceService} from '../task-service/task-service.service';
 import { FormsModule } from '@angular/forms';
+import { TaskFilterComponent } from '../task-filter/task-filter.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TaskFilterComponent],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.css'
 })

@@ -42,12 +42,14 @@
       return this.Tasks.filter(t => !t.completed).length;
     }
 
-    editTask(id: number, newTitle: string): void {
-      const task = this.Tasks.find(t => t.id === id);
-      if (task) {
-        task.title = newTitle
-      }
-    }
+  editTask(id: number, newTitle?: string, newDescription?: string): void {
+  const task = this.Tasks.find(t => t.id === id);
+  if (task) {
+    if (newTitle !== undefined) task.title = newTitle;
+    if (newDescription !== undefined) task.description = newDescription;
+  }
+}
+
 
     setFilter(filter: 'all' | 'active' | 'completed'): void {
       this.currentFilter = filter;

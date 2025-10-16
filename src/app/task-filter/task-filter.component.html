@@ -1,0 +1,22 @@
+<div class="filter-container">
+  <button 
+    class="filter-btn" 
+    [class.active]="currentFilter === 'all'"
+    (click)="setFilter('all')">
+    All Tasks
+  </button>
+
+  <button 
+    class="filter-btn" 
+    [class.active]="currentFilter === 'active'"
+    (click)="setFilter('active')">
+    Active Tasks
+  </button>
+
+  <button 
+    class="filter-btn" 
+    [class.active]="currentFilter === 'completed'"
+    (click)="setFilter('completed')">
+    Completed Tasks
+  </button>
+</div>
